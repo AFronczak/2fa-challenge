@@ -20,24 +20,24 @@ const createSession = (values) =>
       })
   })
 // keep session param for OTP?
-// const sumbmitOtp = (code) =>
-//   new Promise((resolve, reject) => {
-//     fetch(`${URL}/otp`, {
-//       method: "POST",
-//       credentials: "include",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//       body: JSON.stringify({ session: code }),
-//     })
-//       .then((response) => response.json())
-//       .then((data) => {
-//         resolve(data)
-//       })
-//       .catch((error) => {
-//         reject(error)
-//       })
-//   })
+const sumbmitOtp = (code) =>
+  new Promise((resolve, reject) => {
+    fetch(`${URL}/otp`, {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ session: code }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        resolve(data)
+      })
+      .catch((error) => {
+        reject(error)
+      })
+  })
 
 
 const destroySession = () =>
@@ -58,4 +58,4 @@ const destroySession = () =>
       })
   })
 
-export { createSession, destroySession }
+export { createSession, destroySession, sumbmitOtp }

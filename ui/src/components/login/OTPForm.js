@@ -5,7 +5,7 @@ import { Button } from "@rent_avail/controls"
 import { Text } from "@rent_avail/typography"
 import Input from "@rent_avail/input"
 import { useHistory } from "react-router-dom"
-import { createSession } from "../../api/sessions"
+import { sumbmitOtp } from "../../api/sessions"
 
 const OTPForm = () => {
   const history = useHistory()
@@ -14,7 +14,7 @@ const OTPForm = () => {
   const onSubmit = async (values) => {
     console.log('submitted')
     try {
-      const data = await createSession(values)
+      const data = await sumbmitOtp(values)
       if (data && data.error) {
         setError("code", {
           type: "manual",

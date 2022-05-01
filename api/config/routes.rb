@@ -4,5 +4,6 @@ Rails.application.routes.draw do
   resources :users, only: [:create, :index]
   post 'sessions', to: 'sessions#create'
   delete 'sessions', to: 'sessions#destroy'
+  post 'otp', to: "otp#verify"
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
