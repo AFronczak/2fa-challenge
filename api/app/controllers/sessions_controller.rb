@@ -4,7 +4,7 @@ class SessionsController < ApplicationController
 
     if user && user.authenticate(session_params[:password])
       session[:user_id] = user.id
-      render json: { user: user }
+      render json: { user: user, path: "one_time_pass" }
     else
       render json: { error: "Invalid. Please try again."}, status: :unprocessable_entity
     end
