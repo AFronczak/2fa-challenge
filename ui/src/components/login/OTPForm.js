@@ -4,17 +4,20 @@ import { Stack } from "@rent_avail/layout"
 import { Button } from "@rent_avail/controls"
 import { Text } from "@rent_avail/typography"
 import Input from "@rent_avail/input"
-import { useHistory } from "react-router-dom"
+import { useHistory, useLocation } from "react-router-dom"
 import { sumbmitOtp } from "../../api/sessions"
+
 
 const OTPForm = () => {
   const history = useHistory()
+  const location = useLocation()
+
   const { handleSubmit, register, errors, setError, formState } = useForm()
 
   const onSubmit = async (values) => {
-    console.log('submitted')
+    console.log(location)
     try {
-      const data = await sumbmitOtp(values)
+      const data = await sumbmitOtp(values, location.state.user_id)
       if (data && data.error) {
         setError("code", {
           type: "manual",
@@ -34,7 +37,7 @@ const OTPForm = () => {
         <Input
           mt={2}
           label="Code"
-          type="code"
+          type="input"
           name="code"
           ref={register()}
         />
@@ -43,7 +46,6 @@ const OTPForm = () => {
             {errors.code.message}
           </Text>
         )}
-
         <Button mt={2} loading={formState.isSubmitting} type="submit">
           Submit
         </Button>

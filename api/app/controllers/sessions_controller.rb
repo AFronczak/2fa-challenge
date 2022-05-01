@@ -3,7 +3,7 @@ class SessionsController < ApplicationController
     user = User.find_by(email: session_params[:email])
 
     if user && user.authenticate(session_params[:password])
-      session[:user_id] = user.id
+      # session[:user_id] = user.id
       render json: { user: user, path: "one_time_pass" }
     else
       render json: { error: "Invalid. Please try again."}, status: :unprocessable_entity
@@ -18,6 +18,6 @@ class SessionsController < ApplicationController
   private
     # Only allow a list of trusted parameters through.
     def session_params
-      params.require(:session).permit(:email, :password)
+      params.require(:session).permit(:email, :password, :remember)
     end
 end

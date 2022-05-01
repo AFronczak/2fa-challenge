@@ -20,15 +20,16 @@ const createSession = (values) =>
       })
   })
 // keep session param for OTP?
-const sumbmitOtp = (code) =>
+const sumbmitOtp = (values, id) =>
   new Promise((resolve, reject) => {
+    console.log(values, id)
     fetch(`${URL}/otp`, {
       method: "POST",
       credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ session: code }),
+      body: JSON.stringify({ session: {user_id: id, ...values} }),
     })
       .then((response) => response.json())
       .then((data) => {

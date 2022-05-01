@@ -1,7 +1,7 @@
 import React from "react"
 import { useForm } from "react-hook-form"
-import { Stack } from "@rent_avail/layout"
-import { Button } from "@rent_avail/controls"
+import { Stack, Grid, Col } from "@rent_avail/layout"
+import { Button, Checkbox } from "@rent_avail/controls"
 import { Text } from "@rent_avail/typography"
 import Input from "@rent_avail/input"
 import { useHistory } from "react-router-dom"
@@ -20,7 +20,7 @@ const LoginForm = () => {
           message: data.error,
         })
       } else {
-        history.push(data.path)
+        history.push(data.path, {user_id: data.user.id})
       }
     } catch (err) {
       console.error("Error:", err)
@@ -59,6 +59,18 @@ const LoginForm = () => {
             {errors.password.message}
           </Text>
         )}
+                <Grid mt="2rem">
+          <Col>
+            <Checkbox
+              pt={2}
+              type="radio"
+              name="remember"
+              ref={register()}
+            >
+              Remember this device?
+            </Checkbox> 
+          </Col>
+        </Grid>
 
         <Button mt={2} loading={formState.isSubmitting} type="submit">
           Submit
