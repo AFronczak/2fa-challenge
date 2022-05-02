@@ -2,10 +2,12 @@ import URL from "./index"
 
 const createUser = (values) =>
   new Promise((resolve, reject) => {
+    const token = localStorage.getItem("token")
     fetch(`${URL}/users`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
       },
       credentials: "include",
       body: JSON.stringify({ user: values }),
@@ -21,10 +23,12 @@ const createUser = (values) =>
 
 const getUsers = () =>
   new Promise((resolve, reject) => {
+    const token = localStorage.getItem("token")
     fetch(`${URL}/users`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
       },
       credentials: "include",
     })
@@ -39,10 +43,12 @@ const getUsers = () =>
 
 const getMe = () =>
   new Promise((resolve, reject) => {
+    const token = localStorage.getItem("token")
     fetch(`${URL}/me`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
       },
       credentials: "include",
     })

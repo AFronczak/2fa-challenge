@@ -1,15 +1,13 @@
 import URL from "./index"
-
-const createSession = (values) =>
-// probably just add path here
+const submitAuthentication = (values) =>
   new Promise((resolve, reject) => {
-    fetch(`${URL}/sessions`, {
+    fetch(`${URL}/login`, {
       method: "POST",
       credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ session: values }),
+      body: JSON.stringify({ authentication: values }),
     })
       .then((response) => response.json())
       .then((data) => {
@@ -19,8 +17,7 @@ const createSession = (values) =>
         reject(error)
       })
   })
-// keep session param for OTP?
-const sumbmitOtp = (values, id) =>
+const sumbmitOtp = (values, id, remember) =>
   new Promise((resolve, reject) => {
     console.log(values, id)
     fetch(`${URL}/otp`, {
@@ -29,10 +26,11 @@ const sumbmitOtp = (values, id) =>
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ session: {user_id: id, ...values} }),
+      body: JSON.stringify({ otp: {user_id: id, remember: remember, ...values} }),
     })
       .then((response) => response.json())
       .then((data) => {
+        localStorage.setItem("token", data.jwt)
         resolve(data)
       })
       .catch((error) => {
@@ -40,23 +38,9 @@ const sumbmitOtp = (values, id) =>
       })
   })
 
-
+// delete from local storage
 const destroySession = () =>
-  new Promise((resolve, reject) => {
-    fetch(`${URL}/sessions`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "include",
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        resolve(data)
-      })
-      .catch((error) => {
-        reject(error)
-      })
-  })
+  localStorage.removeItem("token")
+  sessionStorage.removeItem('token')
 
-export { createSession, destroySession, sumbmitOtp }
+export { destroySession, sumbmitOtp, submitAuthentication }

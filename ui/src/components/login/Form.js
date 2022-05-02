@@ -5,7 +5,7 @@ import { Button, Checkbox } from "@rent_avail/controls"
 import { Text } from "@rent_avail/typography"
 import Input from "@rent_avail/input"
 import { useHistory } from "react-router-dom"
-import { createSession } from "../../api/sessions"
+import { submitAuthentication } from "../../api/sessions"
 
 const LoginForm = () => {
   const history = useHistory()
@@ -13,7 +13,7 @@ const LoginForm = () => {
 
   const onSubmit = async (values) => {
     try {
-      const data = await createSession(values)
+      const data = await submitAuthentication(values)
       if (data && data.error) {
         setError("password", {
           type: "manual",

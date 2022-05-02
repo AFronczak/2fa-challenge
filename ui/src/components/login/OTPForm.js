@@ -17,7 +17,7 @@ const OTPForm = () => {
   const onSubmit = async (values) => {
     console.log(location)
     try {
-      const data = await sumbmitOtp(values, location.state.user_id)
+      const data = await sumbmitOtp(values, location.state.user_id, location.state.remember_me)
       if (data && data.error) {
         setError("code", {
           type: "manual",

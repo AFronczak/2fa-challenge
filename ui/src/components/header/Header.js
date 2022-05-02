@@ -11,14 +11,15 @@ const Header = () => {
   const history = useHistory()
   const location = useLocation()
 
-  const logout = async () => {
-    await destroySession()
+  const logout = () => {
+    destroySession()
+    setLoggedIn(false)
     history.push("/")
   }
 
   const fetchMe = async () => {
     const data = await getMe()
-    if (data.error) {
+    if (data.message === 'Please Login') {
       setLoggedIn(false)
     } else {
       setLoggedIn(true)
